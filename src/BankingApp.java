@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 public class BankingApp {
     private UserDAO userDAO;
@@ -36,7 +36,6 @@ public class BankingApp {
     public List<Transaction> searchTransaction(String searchTerm) {
         return transactionDAO.searchTransactions(currentUser.getId(), searchTerm);
     }
-
     public double calcBalance() {
         List<Transaction> transactionList = getTransactions();
         double amount = 0.0;
@@ -48,5 +47,8 @@ public class BankingApp {
             }
         }
         return amount;
+    }
+    public void updateProfile(String firstName, String lastName, String location, String dob) {
+        userDAO.updateUserInfo(currentUser.getId(), firstName, lastName, location, dob);
     }
 }
