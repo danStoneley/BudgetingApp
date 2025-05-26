@@ -49,6 +49,9 @@ public class BankingApp {
         return amount;
     }
     public void updateProfile(String firstName, String lastName, String location, String dob) {
-        userDAO.updateUserInfo(currentUser.getId(), firstName, lastName, location, dob);
+        userDAO.addUserInfo(currentUser.getId(), firstName, lastName, location, dob);
+    }
+    public void updateProfileField(String field, String content) {
+    userDAO.updateUserInfo(field, content, currentUser.getId());
     }
 }

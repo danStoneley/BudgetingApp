@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.List;
 
 public class UserDAO {
     public User createUser(String username, String password) {
@@ -45,17 +46,34 @@ public class UserDAO {
         }
         return null;
     }
-
-    public void updateUserInfo(int user_id, String firstName, String lastName, String location, String dob) {
+    public void addUserInfo(int user_id, String firstName, String lastName, String location, String dob) {
         String sql = "INSERT INTO user_profiles (user_id, first_name, last_name, location, birthdate) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
-            PreparedStatement statement= conn.prepareStatement(sql)) {
+            PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, user_id);
             statement.setString(2, firstName);
             statement.setString(3, lastName);
             statement.setString(4, location);
             statement.setString(5, dob);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateUserInfo(String field, String content, int user_id) {
+        List<String> fields = List.of("first_name", "last_name", "location", "birthdate");
+        if (!fields.contains(field)) {
+            throw new IllegalArgumentException("Invalid field" + field);
+        }
+        String sql = "UPDATE user_profiles SET " + field + " = ? WHERE user_id = ?";
+
+        try(Connection conn = Database.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, content);
+            statement.setInt(2, user_id);
 
             statement.executeUpdate();
 

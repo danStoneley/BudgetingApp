@@ -22,7 +22,6 @@ public class TransactionDAO {
             e.printStackTrace();
         }
     }
-
     public List<Transaction> getTransactions(int user_id) {
         String sql = "SELECT * FROM transactions WHERE user_id = ?";
         try (Connection conn = Database.getConnection();
