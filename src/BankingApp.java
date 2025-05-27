@@ -33,8 +33,8 @@ public class BankingApp {
     public List<Transaction> getTransactions() {
         return transactionDAO.getTransactions(currentUser.getId());
     }
-    public List<Transaction> searchTransaction(String searchTerm) {
-        return transactionDAO.searchTransactions(currentUser.getId(), searchTerm);
+    public List<Transaction> searchTransaction(String searchTerm, String fieldTerm) {
+        return transactionDAO.searchTransactions(currentUser.getId(), searchTerm, fieldTerm);
     }
     public double calcBalance() {
         List<Transaction> transactionList = getTransactions();
