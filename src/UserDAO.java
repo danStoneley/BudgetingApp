@@ -81,4 +81,7 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+    public void getUserInfo() {
+
+    }
 }
