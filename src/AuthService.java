@@ -6,7 +6,6 @@ public class AuthService {
     private final Scanner scanner = new Scanner(System.in);
     private BusinessLogic logic;
 
-
     public User login() {
         display.showLoginMenu();
         String email = scanner.next();

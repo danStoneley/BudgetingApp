@@ -28,9 +28,6 @@ public class MenuDisplay {
         System.out.println("[2] Update Profile");
         System.out.println("[3] Main Menu");
     }
-    public void showProfileInfo() {
-        System.out.println("HERE IS YOUR INFO");
-    }
     public void showReturnOption() {
         System.out.println("[1] Return to Main Menu");
     }
