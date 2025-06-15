@@ -1,52 +1,35 @@
-import java.util.List;
+import java.util.*;
 
 public class BankingApp {
-    private UserDAO userDAO;
-    private TransactionDAO transactionDAO;
-    private User currentUser;
+    private AuthService auth;
+    private MenuDisplay display;
+    private final Scanner scanner = new Scanner(System.in);
 
     BankingApp() {
-        userDAO = new UserDAO();
-        transactionDAO = new TransactionDAO();
-    }
-    public boolean login(String email, String password) {
-        User user = userDAO.validateLogin(email, password);
-        if (user != null) {
-            this.currentUser = user;
-            System.out.println("Login successful.");
-            return true;
-        } else {
-            System.out.println("Login failed.");
-            return false;
-        }
-    }
-    public void logout() {
-        currentUser = null;
-    }
-    public void createTransaction(Transaction t) {
-        if (currentUser == null) {
-            System.out.println("Must be logged in.");
-        } else {
-            transactionDAO.createTransaction(t, currentUser.getId());
-        }
-    }
-    public List<Transaction> getTransactions() {
-        return transactionDAO.getTransactions(currentUser.getId());
-    }
-    public List<Transaction> searchTransaction(String searchTerm) {
-        return transactionDAO.searchTransactions(currentUser.getId(), searchTerm);
-    }
+        auth = new AuthService();
+        display = new MenuDisplay();
 
-    public double calcBalance() {
-        List<Transaction> transactionList = getTransactions();
-        double amount = 0.0;
-        for (Transaction t : transactionList) {
-            if (t.getType().equals("+")) {
-                amount += t.getAmount();
-            } else if (t.getType().equals("-")) {
-                amount -= t.getAmount();
+    }
+    public void run() {
+        while (true) {
+            display.showInitialMenu();
+            String choice = scanner.next();
+            switch (choice) {
+                case "1" -> {
+                    User user = auth.login();
+                    if (user != null) {
+                        SessionManager session = new SessionManager(user);
+                        session.handleSession();
+                    }
+                }
+                case "2" -> {
+                    auth.handleCreateUser();
+                }
+                case "3" -> {
+                    System.out.println("Goodbye");
+                    return;
+                }
             }
         }
-        return amount;
     }
 }

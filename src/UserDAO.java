@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.List;
 
 public class UserDAO {
     public User createUser(String username, String password) {
@@ -44,5 +45,62 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    public void addUserInfo(int user_id, String firstName, String lastName, String location, String dob) {
+        String sql = "INSERT INTO user_profiles (user_id, first_name, last_name, location, birthdate) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = Database.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, user_id);
+            statement.setString(2, firstName);
+            statement.setString(3, lastName);
+            statement.setString(4, location);
+            statement.setString(5, dob);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateUserInfo(String field, String content, int user_id) {
+        List<String> fields = List.of("first_name", "last_name", "location", "birthdate");
+        if (!fields.contains(field)) {
+            throw new IllegalArgumentException("Invalid field" + field);
+        }
+        String sql = "UPDATE user_profiles SET " + field + " = ? WHERE user_id = ?";
+
+        try(Connection conn = Database.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, content);
+            statement.setInt(2, user_id);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public UserProfile getUserInfo(int user_id) {
+        String sql = "SELECT * FROM user_profiles WHERE user_id = ?";
+        UserProfile userProfile = null;
+        try (Connection conn = Database.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, user_id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String location = rs.getString("location");
+                String birthdate = rs.getString("birthdate");
+                userProfile = new UserProfile(firstName, lastName, location, birthdate);
+            } else {
+                System.out.println("No User info found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userProfile;
     }
 }

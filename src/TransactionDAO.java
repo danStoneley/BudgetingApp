@@ -22,7 +22,6 @@ public class TransactionDAO {
             e.printStackTrace();
         }
     }
-
     public List<Transaction> getTransactions(int user_id) {
         String sql = "SELECT * FROM transactions WHERE user_id = ?";
         try (Connection conn = Database.getConnection();
@@ -46,12 +45,16 @@ public class TransactionDAO {
             return new ArrayList<>();
         }
     }
-    public List<Transaction> searchTransactions(int user_id, String searchTerm) {
-        String sql = "SELECT * FROM transactions WHERE user_id = ? AND type = ?";
+    public List<Transaction> searchTransactions(int user_id, String searchTerm, String field) {
+        List<String> fields = List.of("amount", "reference", "type", "name");
+        if (!fields.contains(field)) {
+            throw new IllegalArgumentException("Invalid field " + field);
+        }
+        String sql = "SELECT * FROM transactions WHERE user_id = ? AND " + field + " = ?";
         try (Connection conn = Database.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, user_id);
-            stmt.setString(2, searchTerm);
+            stmt.setString(2, searchTerm );
             ResultSet rs = stmt.executeQuery();
 
             List<Transaction> transactionList = new ArrayList<>();
@@ -64,6 +67,9 @@ public class TransactionDAO {
 
                 Transaction t = new Transaction(amount, name, ref, type);
                 transactionList.add(t);
+
+            } if (transactionList.isEmpty()){
+                System.out.println("No Transactions found.");
             }
             return transactionList;
 

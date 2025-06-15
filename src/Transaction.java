@@ -26,7 +26,6 @@ public class Transaction {
     public String getReference() {
         return this.reference;
     }
-
     @Override
     public String toString() {
         if (type.equals("+")) {
