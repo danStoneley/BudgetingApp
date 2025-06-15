@@ -81,7 +81,26 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
-    public void getUserInfo() {
 
+    public UserProfile getUserInfo(int user_id) {
+        String sql = "SELECT * FROM user_profiles WHERE user_id = ?";
+        UserProfile userProfile = null;
+        try (Connection conn = Database.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, user_id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String location = rs.getString("location");
+                String birthdate = rs.getString("birthdate");
+                userProfile = new UserProfile(firstName, lastName, location, birthdate);
+            } else {
+                System.out.println("No User info found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userProfile;
     }
 }

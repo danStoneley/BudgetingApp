@@ -24,7 +24,7 @@ public class MenuDisplay {
 
     }
     public void showUserProfileMenu() {
-        System.out.println("[1] Profile");
+        System.out.println("[1] Show Profile Info");
         System.out.println("[2] Update Profile");
         System.out.println("[3] Main Menu");
     }

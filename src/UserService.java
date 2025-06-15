@@ -13,6 +13,7 @@ public class UserService {
         userDAO.updateUserInfo(field, content, currentUser.getId());
     }
     public void getProfileInfo() {
-        System.out.println("GET PROFILE INFO");
+        System.out.println(userDAO.getUserInfo(currentUser.getId()));
     }
+
 }

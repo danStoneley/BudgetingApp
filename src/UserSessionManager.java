@@ -11,10 +11,7 @@ public class UserSessionManager {
         this.returnOption = returnOption;
     }
     public void handleProfileInfo() {
-        String choice = scanner.next();
-        switch (choice) {
-            case "1" -> userService.getProfileInfo();
-        }
+        userService.getProfileInfo();
         returnOption.handleReturnOption();
     }
     public void handleUpdateProfile() {
