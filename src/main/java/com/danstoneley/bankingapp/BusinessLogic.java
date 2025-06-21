@@ -6,8 +6,6 @@ public class BusinessLogic {
     BusinessLogic(User user) {
         userDAO = new UserDAO();
     }
-
-
     public User createUser(String email, String password){
         return userDAO.createUser(email, password);
     }

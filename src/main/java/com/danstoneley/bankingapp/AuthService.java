@@ -1,5 +1,6 @@
 package com.danstoneley.bankingapp;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class AuthService {
@@ -22,18 +23,24 @@ public class AuthService {
         }
     }
     public void handleCreateUser() {
-        display.showCreateUserOptions();
-        String email = scanner.next();
-        String password = scanner.next();
+        display.showEnterEmail();
+        String email;
+        while (true) {
+            email = scanner.nextLine().trim();
+            if (EmailCheck.emailChecker(email)) {
+                break;
+            }
+            System.out.println("Invalid email. Please try again:");
+        }
+        display.showPasswordEnterPassword();
+        String password = scanner.nextLine();
         User newUser = userDAO.createUser(email, password);
         if (newUser != null) {
-            System.out.println("New User Created.");
-            System.out.println("Please Login");
-
+            System.out.println("New user created! Please log in.");
         } else {
-            System.out.println("Error");
+            System.out.println("Error creating user—please try later.");
         }
-
     }
 }
+
 

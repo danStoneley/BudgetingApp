@@ -11,9 +11,10 @@ public class UserDAO {
         try (Connection conn = Database.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             String hashedPassword = PasswordHash.hashPassword(password);
-            statement.setString(1, email);
-            statement.setString(2, hashedPassword);
-            statement.executeUpdate();
+                statement.setString(1, email);
+                statement.setString(2, hashedPassword);
+                statement.executeUpdate();
+
 
             ResultSet rs = statement.getGeneratedKeys();
             if (rs.next()) {

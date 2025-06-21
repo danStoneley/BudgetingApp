@@ -34,8 +34,10 @@ public class MenuDisplay {
     public void showReturnOption() {
         System.out.println("[1] Return to Main Menu");
     }
-    public void showCreateUserOptions() {
+    public void showEnterEmail() {
         System.out.println("Enter Email: ");
+    }
+    public void showPasswordEnterPassword() {
         System.out.println("Enter Password: ");
     }
     public void showPasswordChange() {
