@@ -30,15 +30,15 @@ public class AuthService {
             if (EmailCheck.emailChecker(email)) {
                 break;
             }
-            System.out.println("Invalid email. Please try again:");
+            display.showInvalidEmailMessage();
         }
         display.showPasswordEnterPassword();
         String password = scanner.nextLine();
         User newUser = userDAO.createUser(email, password);
         if (newUser != null) {
-            System.out.println("New user created! Please log in.");
+            display.showNewUserMessage();
         } else {
-            System.out.println("Error creating user—please try later.");
+            display.showNewUserError();
         }
     }
 }

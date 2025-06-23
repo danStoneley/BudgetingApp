@@ -38,15 +38,14 @@ public class SessionManager implements ReturnHandler {
                 }
                 case "4" -> {
                     handleLogout();
-                    System.out.println("Logged Out");
-                    //display.showInitialMenu();
+                    display.showLogout();
                     return;
                 }
                 case "5" -> {
-                    System.out.println("Exiting");
+                    display.showExiting();
                     break;
                 }
-                default -> System.out.println("Invalid Option");
+                default -> display.showInvalidOption();
             }
         }
     }
@@ -58,6 +57,7 @@ public class SessionManager implements ReturnHandler {
             case "2" -> handleUpdateProfileField();
             case "3" -> handlePasswordChangeSession();
             case "4" -> handleSession();
+            default -> display.showInvalidOption();
         }
     }
     public void handlePasswordChangeSession() {
@@ -67,12 +67,12 @@ public class SessionManager implements ReturnHandler {
     public void handleTransactionSession() {
         display.showTransactionMenu();
         String choice = scanner.next();
-        switch (choice) {
-            case "1" -> transactionSessionManager.handleAddTransaction();
-            case "2" -> transactionSessionManager.handleGetTransactions();
-            case "3" -> transactionSessionManager.handleFilterTransactions();
-            case "4" -> handleSession();
-            default -> System.out.println("Invalid Choice");
+    switch (choice) {
+        case "1" -> transactionSessionManager.handleAddTransaction();
+        case "2" -> transactionSessionManager.handleGetTransactions();
+        case "3" -> transactionSessionManager.handleFilterTransactions();
+        case "4" -> handleSession();
+        default -> display.showInvalidOption();
         }
     }
     public void handleLogout() {
@@ -93,7 +93,7 @@ public class SessionManager implements ReturnHandler {
                 handleSession();
                 break;
             } else {
-                System.out.println("Select valid option");
+                display.showSelectValidOption();
             }
         }
     }

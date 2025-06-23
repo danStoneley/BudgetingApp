@@ -6,11 +6,13 @@ public class UserSessionManager {
     private final Scanner scanner;
     private final UserService userService;
     private final ReturnHandler returnOption;
+    private final MenuDisplay display;
 
     UserSessionManager(User user, ReturnHandler returnOption) {
         this.scanner = new Scanner(System.in);
         this.userService = new UserService(user);
         this.returnOption = returnOption;
+        this.display = new MenuDisplay();
     }
     public void handleProfileInfo() {
         userService.getProfileInfo();
@@ -25,7 +27,7 @@ public class UserSessionManager {
     public void handleChangePassword() {
         String newPassword = scanner.next();
         if (userService.updatePassword(newPassword)) {
-            System.out.println("Password Changed");
+            display.showPasswordChanged();
         }
         returnOption.handleReturnOption();
     }

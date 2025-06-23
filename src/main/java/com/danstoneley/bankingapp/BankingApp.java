@@ -28,7 +28,7 @@ public class BankingApp {
                     auth.handleCreateUser();
                 }
                 case "3" -> {
-                    System.out.println("Goodbye");
+                    display.showGoodbye();
                     return;
                 }
             }
