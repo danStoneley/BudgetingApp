@@ -1,13 +1,17 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.service;
 
-import java.util.List;
+import com.danstoneley.bankingapp.dao.UserDAO;
+import com.danstoneley.bankingapp.models.User;
+import com.danstoneley.bankingapp.ui.MenuDisplay;
+import com.danstoneley.bankingapp.utils.EmailCheck;
+
 import java.util.Scanner;
 
 public class AuthService {
     private final UserDAO userDAO = new UserDAO();
     private final MenuDisplay display = new MenuDisplay();
     private final Scanner scanner = new Scanner(System.in);
-    private BusinessLogic logic;
+    private BusinessService logic;
 
     public User login() {
         display.showLoginMenu();

@@ -1,4 +1,4 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.models;
 
 public class User {
     private final String email;

@@ -1,4 +1,4 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.utils;
 
 import java.util.regex.Pattern;
 

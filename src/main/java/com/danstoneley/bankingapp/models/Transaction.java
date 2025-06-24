@@ -1,26 +1,22 @@
-package com.danstoneley.bankingapp;
-
-import java.time.LocalDateTime;
+package com.danstoneley.bankingapp.models;
 
 public class Transaction {
     private final double amount;
-    private final String person;
+    private final String name;
     private final String reference;
     private final String type;
-    private final String timestamp;
 
     public Transaction(double amount, String name, String ref, String type) {
         this.amount = amount;
-        this.person = name;
+        this.name = name;
         this.reference = ref;
         this.type = type;
-        this.timestamp = String.valueOf(LocalDateTime.now());
     }
     public double getAmount() {
         return amount;
     }
-    public String getInfo() {
-    return this.person;
+    public String getName() {
+    return this.name;
     }
     public String getType() {
         return this.type;
@@ -31,9 +27,9 @@ public class Transaction {
     @Override
     public String toString() {
         if (type.equals("+")) {
-            return "+£" + amount + " from " + person + " Ref: " + reference;
+            return "+£" + amount + " from " + name + " Ref: " + reference;
         } else if (type.equals("-")) {
-            return "-£" + amount + " with " + person + " Ref: " + reference;
+            return "-£" + amount + " with " + name + " Ref: " + reference;
         }
         return "No valid transaction type entered";
     }

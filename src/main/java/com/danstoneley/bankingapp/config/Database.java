@@ -1,4 +1,4 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

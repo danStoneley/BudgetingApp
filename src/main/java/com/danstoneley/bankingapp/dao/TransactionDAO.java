@@ -1,4 +1,7 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.dao;
+
+import com.danstoneley.bankingapp.config.Database;
+import com.danstoneley.bankingapp.models.Transaction;
 
 import java.sql.*;
 import java.util.*;
@@ -9,12 +12,12 @@ public class TransactionDAO {
         String sql = "INSERT INTO transactions (user_id, amount, reference, type, name) VALUES (?, ?, ?, ?, ?);";
 
         try (Connection conn = Database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, user_id);
             stmt.setDouble(2, t.getAmount());
             stmt.setString(3, t.getReference());
             stmt.setString(4, t.getType());
-            stmt.setString(5, t.getInfo());
+            stmt.setString(5, t.getName());
 
             int rs = stmt.executeUpdate();
             if (rs != 0) {

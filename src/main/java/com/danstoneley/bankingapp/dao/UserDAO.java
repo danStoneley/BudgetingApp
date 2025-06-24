@@ -1,4 +1,9 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.dao;
+
+import com.danstoneley.bankingapp.config.Database;
+import com.danstoneley.bankingapp.utils.PasswordHash;
+import com.danstoneley.bankingapp.models.User;
+import com.danstoneley.bankingapp.models.UserProfile;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,8 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.session;
+
+import com.danstoneley.bankingapp.models.User;
+import com.danstoneley.bankingapp.service.AuthService;
+import com.danstoneley.bankingapp.ui.MenuDisplay;
 
 import java.util.*;
 
@@ -7,7 +11,7 @@ public class BankingApp {
     private MenuDisplay display;
     private final Scanner scanner = new Scanner(System.in);
 
-    BankingApp() {
+    public BankingApp() {
         auth = new AuthService();
         display = new MenuDisplay();
 

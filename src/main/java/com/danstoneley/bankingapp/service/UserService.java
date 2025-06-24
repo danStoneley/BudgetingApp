@@ -1,10 +1,13 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.service;
+
+import com.danstoneley.bankingapp.dao.UserDAO;
+import com.danstoneley.bankingapp.models.User;
 
 public class UserService {
     private final UserDAO userDAO;
     private final User currentUser;
 
-    UserService(User user) {
+    public UserService(User user) {
         userDAO = new UserDAO();
         this.currentUser = user;
     }

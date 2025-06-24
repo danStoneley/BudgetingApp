@@ -1,4 +1,7 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.service;
+
+import com.danstoneley.bankingapp.dao.TransactionDAO;
+import com.danstoneley.bankingapp.models.Transaction;
 
 import java.util.List;
 
@@ -6,7 +9,7 @@ public class TransactionService {
     private final TransactionDAO transactionDAO;
     private final int userId;
 
-    TransactionService(int id) {
+    public TransactionService(int id) {
         transactionDAO = new TransactionDAO();
         this.userId = id;
     }

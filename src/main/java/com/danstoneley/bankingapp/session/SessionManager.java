@@ -1,19 +1,24 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.session;
+
+import com.danstoneley.bankingapp.service.BusinessService;
+import com.danstoneley.bankingapp.utils.ReturnHandler;
+import com.danstoneley.bankingapp.models.User;
+import com.danstoneley.bankingapp.ui.MenuDisplay;
 
 import java.util.Scanner;
 
 public class SessionManager implements ReturnHandler {
     private final MenuDisplay display;
     private final Scanner scanner;
-    private BusinessLogic logic;
+    private BusinessService logic;
     private final TransactionSessionManager transactionSessionManager;
     private final UserSessionManager userSessionManager;
     private User currentUser;
 
-    SessionManager(User user) {
+    public SessionManager(User user) {
         this.display = new MenuDisplay();
         this.scanner = new Scanner(System.in);
-        this.logic = new BusinessLogic(user);
+        this.logic = new BusinessService(user);
         this.transactionSessionManager = new TransactionSessionManager(user, this);
         this.userSessionManager = new UserSessionManager(user, this);
         this.currentUser = user;

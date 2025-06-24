@@ -1,4 +1,4 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.models;
 
 public class UserProfile {
     private String firstName;
@@ -6,7 +6,7 @@ public class UserProfile {
     private String location;
     private String birthdate;
 
-    UserProfile(String firstName, String lastName, String location, String birthdate) {
+    public UserProfile(String firstName, String lastName, String location, String birthdate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.location = location;

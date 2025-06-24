@@ -1,5 +1,10 @@
 package com.danstoneley.bankingapp;
 
+import com.danstoneley.bankingapp.dao.UserDAO;
+import com.danstoneley.bankingapp.models.Transaction;
+import com.danstoneley.bankingapp.models.User;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +28,20 @@ public class TestUtils {
     }
     public static String mockGetUserInfo(int user_id, String updateTerm) {
         return user.updateUserInfo("location", updateTerm, user_id);
+    }
+    public static Transaction mockTransaction(Transaction testTransaction) {
+    return new Transaction(
+        testTransaction.getAmount(),
+        testTransaction.getName(),
+        testTransaction.getReference(),
+        testTransaction.getType());
+    }
+    public static List<Transaction> mockTransactionList(Transaction testTransaction) {
+        List<Transaction> mockList = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            mockList.add(TestUtils.mockTransaction(testTransaction));
+        }
+        return mockList;
     }
 
 }

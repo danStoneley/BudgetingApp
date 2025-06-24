@@ -1,4 +1,4 @@
-package com.danstoneley.bankingapp;
+package com.danstoneley.bankingapp.ui;
 
 public class MenuDisplay {
     public void showLoginMenu() {
