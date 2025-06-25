@@ -1,5 +1,4 @@
 # BudgetingApp
-# BudgetingApp
 
 A simple CLI-based personal finance application built in Java. Designed to help users track their income and expenses with support for user profiles, password security, and basic financial insights. The app demonstrates clean architecture principles, testability, and solid object-oriented design.
 
