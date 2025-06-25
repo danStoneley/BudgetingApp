@@ -1,5 +1,6 @@
 package com.danstoneley.bankingapp.session;
 
+import com.danstoneley.bankingapp.dao.UserDAO;
 import com.danstoneley.bankingapp.models.User;
 import com.danstoneley.bankingapp.service.AuthService;
 import com.danstoneley.bankingapp.ui.MenuDisplay;
@@ -7,14 +8,13 @@ import com.danstoneley.bankingapp.ui.MenuDisplay;
 import java.util.*;
 
 public class BankingApp {
-    private AuthService auth;
-    private MenuDisplay display;
+    private final AuthService auth;
+    private final MenuDisplay display;
     private final Scanner scanner = new Scanner(System.in);
 
     public BankingApp() {
-        auth = new AuthService();
+        auth = new AuthService(new UserDAO());
         display = new MenuDisplay();
-
     }
     public void run() {
         while (true) {

@@ -20,8 +20,7 @@ public class TestUtils {
         return user.validateLogin(email, password) != null;
     }
     public static List<String> addUserInfo(int user_id) {
-        List<String> out =  user.addUserInfo(user_id, "firstName", "lastName", "location", "dob");
-        return out;
+        return user.addUserInfo(user_id, "firstName", "lastName", "location", "dob");
     }
     public static List<String> mockProfileInfo(){
         return List.of("dob", "firstName", "lastName", "location");

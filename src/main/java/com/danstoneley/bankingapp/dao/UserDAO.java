@@ -1,6 +1,7 @@
 package com.danstoneley.bankingapp.dao;
 
 import com.danstoneley.bankingapp.config.Database;
+import com.danstoneley.bankingapp.exceptions.DataAccessException;
 import com.danstoneley.bankingapp.utils.PasswordHash;
 import com.danstoneley.bankingapp.models.User;
 import com.danstoneley.bankingapp.models.UserProfile;
@@ -9,7 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO {
+public class UserDAO implements UserRepository{
+    @Override
     public User createUser(String email, String password) {
         String sql = "INSERT INTO users (email, password) VALUES (?, ?)";
 
@@ -28,11 +30,12 @@ public class UserDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
 
         return null;
     }
+    @Override
     public User validateLogin(String email, String password) {
         String sql = "SELECT * FROM users WHERE email = ?";
 
@@ -53,10 +56,11 @@ public class UserDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
         return null;
     }
+    @Override
     public List<String> addUserInfo(int user_id, String firstName, String lastName, String location, String dob) {
         String sql = "INSERT INTO user_profiles (user_id, first_name, last_name, location, birthdate) VALUES (?, ?, ?, ?, ?)";
 
@@ -80,10 +84,10 @@ public class UserDAO {
             return profileInfoList;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
-        return new ArrayList<>();
     }
+    @Override
     public String updateUserInfo(String field, String content, int user_id) {
         List<String> fields = List.of("first_name", "last_name", "location", "birthdate");
         if (!fields.contains(field)) {
@@ -99,10 +103,10 @@ public class UserDAO {
             return getIndividualUserInfo(field, user_id);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
-        return null;
     }
+    @Override
     public UserProfile getUserInfo(int user_id) {
         String sql = "SELECT * FROM user_profiles WHERE user_id = ?";
         UserProfile userProfile = null;
@@ -120,10 +124,11 @@ public class UserDAO {
                 System.out.println("No User info found");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
         return userProfile;
     }
+    @Override
     public boolean updatePassword(String newPassword, int user_id) {
         String sql = "UPDATE users SET password = ? WHERE id = ?";
         String hashedPassword = PasswordHash.hashPassword(newPassword);
@@ -137,10 +142,11 @@ public class UserDAO {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
         return false;
     }
+    @Override
     public boolean deleteUser(int user_id) {
         String sql = "DELETE FROM users WHERE id = ?";
         try (Connection conn = Database.getConnection();
@@ -152,10 +158,11 @@ public class UserDAO {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
         return false;
     }
+    @Override
     public String getIndividualUserInfo(String field, int user_id) {
         List<String> fields = List.of("first_name", "last_name", "location", "birthdate");
         if (!fields.contains(field)) {
@@ -170,7 +177,7 @@ public class UserDAO {
                 return rs.getString(field);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
         return "No Information found";
     }

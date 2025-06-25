@@ -1,6 +1,7 @@
 package com.danstoneley.bankingapp.service;
 
 import com.danstoneley.bankingapp.dao.UserDAO;
+import com.danstoneley.bankingapp.dao.UserRepository;
 import com.danstoneley.bankingapp.models.User;
 import com.danstoneley.bankingapp.ui.MenuDisplay;
 import com.danstoneley.bankingapp.utils.EmailCheck;
@@ -8,16 +9,19 @@ import com.danstoneley.bankingapp.utils.EmailCheck;
 import java.util.Scanner;
 
 public class AuthService {
-    private final UserDAO userDAO = new UserDAO();
+    private final UserRepository repo;
     private final MenuDisplay display = new MenuDisplay();
     private final Scanner scanner = new Scanner(System.in);
-    private BusinessService logic;
+
+    public AuthService(UserRepository repo) {
+        this.repo = repo;
+    }
 
     public User login() {
         display.showLoginMenu();
         String email = scanner.next();
         String password = scanner.next();
-        User user = userDAO.validateLogin(email, password);
+        User user = repo.validateLogin(email, password);
         if (user != null) {
             System.out.println("Login successful.");
             return user;
@@ -38,7 +42,7 @@ public class AuthService {
         }
         display.showPasswordEnterPassword();
         String password = scanner.nextLine();
-        User newUser = userDAO.createUser(email, password);
+        User newUser = repo.createUser(email, password);
         if (newUser != null) {
             display.showNewUserMessage();
         } else {

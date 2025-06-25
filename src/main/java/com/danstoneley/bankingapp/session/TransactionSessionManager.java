@@ -1,5 +1,6 @@
 package com.danstoneley.bankingapp.session;
 
+import com.danstoneley.bankingapp.dao.TransactionDAO;
 import com.danstoneley.bankingapp.utils.ReturnHandler;
 import com.danstoneley.bankingapp.models.Transaction;
 import com.danstoneley.bankingapp.models.User;
@@ -17,7 +18,7 @@ public class TransactionSessionManager {
 
     TransactionSessionManager(User user, ReturnHandler returnOption) {
         this.scanner = new Scanner(System.in);
-        this.transactionService = new TransactionService(user.getId());
+        this.transactionService = new TransactionService(user.getId(), new TransactionDAO());
         this.returnOption = returnOption;
         this.display = new MenuDisplay();
     }

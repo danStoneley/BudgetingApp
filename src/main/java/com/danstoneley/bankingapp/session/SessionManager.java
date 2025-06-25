@@ -1,5 +1,6 @@
 package com.danstoneley.bankingapp.session;
 
+import com.danstoneley.bankingapp.dao.UserDAO;
 import com.danstoneley.bankingapp.service.BusinessService;
 import com.danstoneley.bankingapp.utils.ReturnHandler;
 import com.danstoneley.bankingapp.models.User;
@@ -18,7 +19,7 @@ public class SessionManager implements ReturnHandler {
     public SessionManager(User user) {
         this.display = new MenuDisplay();
         this.scanner = new Scanner(System.in);
-        this.logic = new BusinessService(user);
+        this.logic = new BusinessService(user, new UserDAO());
         this.transactionSessionManager = new TransactionSessionManager(user, this);
         this.userSessionManager = new UserSessionManager(user, this);
         this.currentUser = user;

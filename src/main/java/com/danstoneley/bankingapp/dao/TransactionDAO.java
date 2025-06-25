@@ -1,13 +1,15 @@
 package com.danstoneley.bankingapp.dao;
 
 import com.danstoneley.bankingapp.config.Database;
+import com.danstoneley.bankingapp.exceptions.DataAccessException;
 import com.danstoneley.bankingapp.models.Transaction;
 
 import java.sql.*;
 import java.util.*;
 
-public class TransactionDAO {
+public class TransactionDAO implements TransactionRepository{
     // creates transaction object and adds to DB //
+    @Override
     public void createTransaction(Transaction t, int user_id) {
         String sql = "INSERT INTO transactions (user_id, amount, reference, type, name) VALUES (?, ?, ?, ?, ?);";
 
@@ -25,10 +27,11 @@ public class TransactionDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataAccessException("an error occurred", e);
         }
     }
     // returns List of all Transactions from DB by user_id //
+    @Override
     public List<Transaction> getTransactions(int user_id) {
         String sql = "SELECT * FROM transactions WHERE user_id = ?";
         try (Connection conn = Database.getConnection();
@@ -48,11 +51,11 @@ public class TransactionDAO {
             return transactionList;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
+            throw new DataAccessException("an error occurred", e);
         }
     }
     // search Transactions by type //
+    @Override
     public List<Transaction> searchTransactions(int user_id, String searchTerm, String field) {
         List<String> fields = List.of("amount", "reference", "type", "name");
         if (!fields.contains(field)) {
@@ -82,8 +85,8 @@ public class TransactionDAO {
             return transactionList;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
+            throw new DataAccessException("an error occurred", e);
         }
     }
+
 }

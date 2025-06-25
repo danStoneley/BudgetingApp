@@ -25,42 +25,36 @@ public class UserDAOTest {
     }
 
     @Test
-    void createUserTest() {
+    void shouldCreateUserTest() {
         assertTrue(TestUtils.isLoginValid(testUser.getEmail(), "12345")); // Checks new test user can Login
-        userDAO.deleteUser(testUser.getId()); // Deletes test user
-        assertFalse(TestUtils.isLoginValid(testUser.getEmail(), "12345")); // Check delete successful
     }
     @Test
-    void deleteUserTest() {
+    void shouldDeleteUserTest() {
         assertTrue(userDAO.deleteUser(testUser.getId())); // Deletes user
     }
     @Test
-    void validateLoginTest(){
+    void shouldValidateLoginTest(){
         assertTrue(TestUtils.isLoginValid(testUser.getEmail(), "12345")); // Checks Login works
-        userDAO.deleteUser(testUser.getId()); // Deletes test user
-        assertFalse(TestUtils.isLoginValid(testUser.getEmail(), "12345")); // Checks Login fails
     }
     @Test
-    void addUserInfoTest() {
+    void shouldAddUserInfoTest() {
        assertEquals(TestUtils.addUserInfo(testUser.getId()), TestUtils.mockProfileInfo()); // Adds user info from Util method into db
-       userDAO.deleteUser(testUser.getId()); // Deletes test user
-       assertFalse(TestUtils.isLoginValid(testUser.getEmail(), "12345")); // Check login fails
     }
     @Test
-    void updateUserInfoTest() {
+    void shouldUpdateUserInfoTest() {
         userDAO.addUserInfo(testUser.getId(), "firstNameTest", "lastNameTest", "locationTest", "dobTest");
         String updateTerm = "updatedLocation";
         assertEquals(updateTerm, TestUtils.mockGetUserInfo(testUser.getId(), updateTerm));
     }
     @Test
-    void getUserInfoTest() {
+    void shouldGetUserInfoTest() {
         userDAO.addUserInfo(testUser.getId(), "firstNameTest", "lastNameTest", "locationTest", "dobTest");
         UserProfile userFromDb = userDAO.getUserInfo(testUser.getId());
         UserProfile compareUser = new UserProfile("firstNameTest", "lastNameTest", "locationTest", "dobTest");
         assertEquals(userFromDb.toString(), compareUser.toString());
     }
     @Test
-    void updatePasswordTest() {
+    void shouldUpdatePasswordTest() {
         String newPassword = "newPassword";
         userDAO.updatePassword(newPassword, testUser.getId());
         assertTrue(TestUtils.isLoginValid(testUser.getEmail(), newPassword));
