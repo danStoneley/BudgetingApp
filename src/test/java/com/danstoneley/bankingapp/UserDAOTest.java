@@ -14,7 +14,7 @@ public class UserDAOTest {
 
     @BeforeEach
     void setUp() {
-        testUser = TestUtils.createTestUser();
+        testUser = TestUtils.createTestUser("12345");
     }
 
     @AfterEach

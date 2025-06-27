@@ -10,25 +10,27 @@ import java.util.*;
 public class TransactionDAO implements TransactionRepository{
     // creates transaction object and adds to DB //
     @Override
-    public void createTransaction(Transaction t, int user_id) {
+    public Transaction createTransaction(Transaction t, int user_id) {
         String sql = "INSERT INTO transactions (user_id, amount, reference, type, name) VALUES (?, ?, ?, ?, ?);";
 
         try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, user_id);
             stmt.setDouble(2, t.getAmount());
             stmt.setString(3, t.getReference());
             stmt.setString(4, t.getType());
             stmt.setString(5, t.getName());
-
-            int rs = stmt.executeUpdate();
-            if (rs != 0) {
-                System.out.println("Transaction added");
+            int rows = stmt.executeUpdate();
+            if (rows != 0) {
+                ResultSet keys = stmt.getGeneratedKeys();
+                if (keys.next()) {
+                    return new Transaction(keys.getDouble("amount"), keys.getString("name"), keys.getString("reference"), keys.getString("type"));
+                }
             }
-
         } catch (SQLException e) {
             throw new DataAccessException("an error occurred", e);
         }
+        return null;
     }
     // returns List of all Transactions from DB by user_id //
     @Override
