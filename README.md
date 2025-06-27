@@ -10,7 +10,6 @@ A simple CLI-based personal finance application built in Java. Designed to help 
 - User profile management (name, DOB, location)
 - Persistence using PostgreSQL and JDBC
 - Unit testing with JUnit
-- Dependency Injection & Interface-based architecture
 - Follows SOLID principles & clean code practices
 
 ##  Project Structure
