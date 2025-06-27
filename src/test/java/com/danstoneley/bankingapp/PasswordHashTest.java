@@ -11,16 +11,6 @@ public class PasswordHashTest {
     private User testUser;
     private final UserDAO userDAO = new UserDAO();
 
-    @BeforeEach
-    void setUp() {
-       // testUser = TestUtils.createTestUser();
-    }
-    @AfterEach
-    void tearDown() {
-        if (testUser != null) {
-            userDAO.deleteUser(testUser.getId());
-        }
-    }
     @Test
     void checkPasswordNotStoredPlainText() {
         String testUserPassword = "12345";
@@ -28,6 +18,7 @@ public class PasswordHashTest {
         String storedHash = TestUtils.retrievePassword(testUser.getId());
         assertNotNull(storedHash); // Hash should not be null
         assertNotEquals("12345", storedHash); // DB should not store the plain password
-        assertTrue(storedHash.startsWith("$2")); // Stored hash should look like a BCrypt hash
+        assertTrue(storedHash.startsWith("$2"));
+        userDAO.deleteUser(testUser.getId());// Stored hash should look like a BCrypt hash
     }
 }
